@@ -1,0 +1,137 @@
+★중요 !  1. Join 의 종류 6가지를 적고 각각 어떤 역할을 하는지 적으시오
+
+- INNER JOIN : 일치한 데이터를 통해 테이블들의 레코드를 처리하고 싶을 때 사용한다.
+
+- LEFT OUTER JOIN : 일치하지 않은 데이터를 가지고 있어도 레코드를 처리하고 싶을 때 사용한다. 
+
+- RIGHT OUTER JOIN : LEFT OUTER JOIN과 같은 개념인데 LEFT OUTER JOIN은 JOIN 한 테이블의 레코드를 처리할 수 있었다면 RIGHT OUTER JOIN은 FROM 바로 다음의 테이블의 레코드를 처리하고 싶을 때 사용한다.
+
+- OUTER JOIN : INNER JOIN의 반대!!
+
+- CROSS JOIN : 공통된 컬럼의 값이 일치하든 안하든 테이블의 레코드를 처리하고 싶을 때 사용한다.
+
+- SELF JOIN : 하나의 테이블에서 부모, 자식 구조로 데이터를 처리하고 싶을 때 사용한다.
+
+
+★중요 !  2. Join 의 종류 6가지를 어떤 문법으로 사용하는지 적으시오
+
+- INNER JOIN 
+SELECT
+	테이블1.컬럼, 테이블2,컬럼
+FROM
+	테이블1
+INNER JOIN 
+	테이블2
+ON
+	테이블1.공통컬럼 = 테이블2.공통컬럼
+
+- LEFT OUTER 
+SELECT
+	테이블1.컬럼, 테이블2,컬럼
+FROM
+	테이블1
+LEFT OUTER JOIN
+	테이블2
+ON
+	테이블1.공통컬럼 = 테이블2.공통컬럼
+
+
+- RIGHT OUTER
+SELECT
+	테이블1.컬럼, 테이블2,컬럼
+FROM
+	테이블1
+RIGHT OUTER JOIN
+	테이블2
+ON
+	테이블1.공통컬럼 = 테이블2.공통컬럼
+
+- OUTER JOIN
+SELECT
+	테이블1.컬럼, 테이블2,컬럼
+FROM
+	테이블1
+OUTER JOIN
+	테이블2
+ON
+	테이블1.공통컬럼 <> 테이블2.공통컬럼
+
+- CROSS JOIN
+SELECT
+	테이블1.컬럼, 테이블2,컬럼
+FROM
+	테이블1
+CROSS JOIN
+	테이블2
+
+
+- SELF JOIN
+SELECT
+	테이블1.컬럼1, 테이블2.컬럼3
+FROM
+	테이블 as 테이블1
+SELF JOIN
+	테이블 as 테이블2
+ON 
+	테이블1.컬럼1 = 테이블2.컬럼2
+
+★중요 !  3. SELECT  (   )  FROM   (   )   WHERE  (   ) 
+
+각 ( )위치에 해당하는 서브쿼리명칭과 역할, 결과를 적으시오.
+
+( 보기 -  인라인 뷰,  스칼라 서브쿼리, 서브쿼리 )
+
+- SELECT(스칼라 서브쿼리) : 서브쿼리의 결과를 하나의 컬럼처럼 사용하고 싶을 때 
+- FROM(인라인 뷰) : 뷰테이블처럼 결과가 동적으로 생성된 테이블로 사용
+- WHERE(서브쿼리) : 서브쿼리의 결과로 조건을 줘서 데이터를 조회하고 싶을 때
+
+
+★중요 !  4. 단일행 서브쿼리와 다중 행 서브쿼리 비교연산자를 각각 적으시오.
+
+- 단일행 서브쿼리 : =
+- 다중행 서브쿼리 : IN, ANY, ALL, EXISTS
+
+★중요 !  5. 다중행 비교 연산자 각각의 설명과 사용법을 적어주세요
+
+- IN : 하나의 컬럼이 여러개의 "=" 조건을 가지는 경우
+SELECT
+	ename, sal, deptno
+FROM
+	emp
+WHERE
+	sal IN (select MIN(sal) from emp group by deptno)
+
+- ANY : 여러 결과값 중 하나의 값만 만족하면 행 반환
+SELECT
+	ename, sal
+FROM
+	emp
+WHERE
+	sal > ANY (select sal from emp where job = 'SALESMAN')
+
+- ALL : 서브쿼리 결과값 중 모든 결과를 만족하는 행을 반환
+SELECT
+	ename, sal
+FROM 
+	emp
+WHERE
+	sal > ALL (select sal from emp where job = 'SALESMAN')
+
+- EXISTS : 서브쿼리의 값이 있을 경우 메인쿼리 수행
+SELECT
+	*
+FROM
+	dept
+WHERE
+	EXISTS (select deptno from dept where deptno =10)
+
+★중요 !  6. 3개 종류의 서브쿼리 예제를 각각 한개씩 작성하고 결과를 보여주세요.
+
+- 단일행 서브쿼리
+- 다중행 서브쿼리
+- 다중컬럼 서브쿼리
+
+
+★★중요7 . 다음 결과를 도출하도록 쿼리를 작성해서 제출하고 결과를 캡쳐해서 올려주세요.
+
+-    부서별로 평균 임금보다 많이 받는 사원을 구하세요.     -
